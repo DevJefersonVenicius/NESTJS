@@ -19,8 +19,6 @@ export class CreateUserDTO { // DTO - SEMPRE SÃO CLASSES
     })
     password: string
     
-    @IsString()
-    contact: string
 }
 // @IsString() - É uma String
 // @IsInt() - É um Number

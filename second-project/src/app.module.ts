@@ -9,3 +9,4 @@ import { UserModule } from './User/user.module';
   providers: [AppService],
 })
 export class AppModule {}
+// module -  é o arquivo de configuração do ambiente
