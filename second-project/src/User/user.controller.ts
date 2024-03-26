@@ -10,47 +10,38 @@ export class UserController {
     }
 
     @Post()
-    async create(@Body() { name, email, cpf, password}: CreateUserDTO) {
-        return this.userService.create({name, email, cpf, password}) // @Body - RECEBI INFORMAÇÕES DO POST
+    create(@Body() data: CreateUserDTO) { // @Body - RECEBI INFORMAÇÕES DO POST
+        return this.userService.create(data)
     }
 
     @Get()
     async read() { // READ
-        return { users:[] }
+        return this.userService.list()
     }
-
+p
     @Get(':id')
     async readOne(@Param('id', ParseIntPipe) id: number) { // READ COM ONE
-        return { user:{}, id }
+        return this.userService.show(id)
+    }
+
+    @Get(':name')
+    async readOneName(@Param('name') name: string) { 
+        return this.userService.showName(name)
     }
 
     @Put(':id')
-    async update(@Body() {name, email, cpf, password}: UpdateUserDTO, @Param('id', ParseIntPipe) id: number) { // PUT - DELETE 
-        return {
-            method: 'PUT',
-            name,
-            email,
-            cpf,
-            password,
-            id
-        }
+    async update(@Body() data: UpdateUserDTO, @Param('id', ParseIntPipe) id: number) { // PUT 
+        return this.userService.update(id, data)
     }
     
     @Patch(':id')
-    async updatePartial(@Body() {name, email, cpf, password}: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id: number) { // ATUALIZA APENAS UMA PARTE DO ELEMENTO
-        return {
-            method: 'PATCH',
-            name,
-            email,
-            cpf,
-            password,
-            id
-        }
+    async updatePartial(@Body() data: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id: number) { // ATUALIZA APENAS UMA PARTE DO ELEMENTO
+        return this.userService.updatePartial(id, data)
     }
 
     @Delete(':id')
-    async  delete(@Param('id', ParseIntPipe) id: number) { // DELETA POR ID
-        return { id }
+    async delete(@Param('id', ParseIntPipe) id: number) { // DELETA POR ID
+        return this.userService.delete(id)
     }
-
+    
 }
