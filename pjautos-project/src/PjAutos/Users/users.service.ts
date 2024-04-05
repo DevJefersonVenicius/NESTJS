@@ -9,7 +9,7 @@ export class UsersService {
     constructor(private readonly prisma: PrismaService) {}
     
     async create({name, email, cpf, password}: CreateUserDTO) {
-        return this.prisma.user_login.create({
+        return this.prisma.user.create({
             data: {
                 name,
                 email,
@@ -20,13 +20,21 @@ export class UsersService {
     }
     
     async list() { // list - LISTA BODY
-        return this.prisma.user_login.findMany()
+        return this.prisma.user.findMany()
     }
 
     async show(id: number) {
-        return this.prisma.user_login.findUnique({
+        return this.prisma.user.findUnique({
             where: {
                 id,
+            }
+        })
+    }
+
+    async showName(name: string) { 
+        return this.prisma.user.findFirst({
+            where: {
+                name: name,
             }
         })
     }
@@ -35,7 +43,7 @@ export class UsersService {
         if (!(await this.show(id))) { // QUANDO O ID NÃO EXISTIR
             throw new NotFoundException(`Usuário de Id ${id} não encontrado.`)
         }
-        return this.prisma.user_login.update({
+        return this.prisma.user.update({
             data,
             where: {
                 id,
@@ -67,7 +75,7 @@ export class UsersService {
             data.password = password
         }
         
-        return this.prisma.user_login.update({
+        return this.prisma.user.update({
             data, 
             where: {
                 id,
@@ -79,7 +87,7 @@ export class UsersService {
         if (!(await this.show(id))) { // QUANDO O ID NÃO EXISTIR
             throw new NotFoundException(`Usuário de Id ${id} não encontrado.`)
         }
-        return this.prisma.user_login.delete({
+        return this.prisma.user.delete({
             where: {
                 id,
             }

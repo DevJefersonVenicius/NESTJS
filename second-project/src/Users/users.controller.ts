@@ -17,10 +17,15 @@ export class UsersController {
     async read() { // READ
         return this.userService.list()
     }
-
+    
     @Get(':id')
     async readOne(@Param('id', ParseIntPipe) id: number) { // READ COM ONE
         return this.userService.show(id)
+    }
+
+    @Get(':name')
+    async readOneName(@Param('name') name: string) { 
+        return this.userService.showName(name)
     }
 
     @Put(':id')

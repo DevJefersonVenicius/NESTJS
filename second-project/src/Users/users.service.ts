@@ -31,9 +31,17 @@ export class UsersService {
         })
     }
 
+    async showName(name: string) { 
+        return this.prisma.user_login.findFirst({
+            where: {
+                name: name,
+            }
+        })
+    }
+
     async update(id: number, data: UpdateUserDTO) {
         if (!(await this.show(id))) { // QUANDO O ID NÃO EXISTIR
-            throw new NotFoundException(`Usuário de Id ${id} não encontrado.`)
+            throw new NotFoundException(`Usuário ${id} não encontrado.`)
         }
         return this.prisma.user_login.update({
             data,
@@ -48,7 +56,7 @@ export class UsersService {
         const data: any = {}
 
         if (!(await this.show(id))) { // QUANDO O ID NÃO EXISTIR
-            throw new NotFoundException(`Usuário de Id ${id} não encontrado.`)
+            throw new NotFoundException(`Usuário ${id} não encontrado.`)
         }
 
         if (name) {
@@ -77,7 +85,7 @@ export class UsersService {
 
     async delete(id: number) {
         if (!(await this.show(id))) { // QUANDO O ID NÃO EXISTIR
-            throw new NotFoundException(`Usuário de Id ${id} não encontrado.`)
+            throw new NotFoundException(`Usuário ${id} não encontrado.`)
         }
         return this.prisma.user_login.delete({
             where: {

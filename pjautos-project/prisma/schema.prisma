@@ -13,10 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user_login {
+model User { // nunca salvar tabela em maiusculo
   id Int @id @default(autoincrement())
-  name String
-  email String
-  cpf String
+  email String?
+  cpf Int @unique
   password String
+  name  String?
+  @@map("user")
+}
+
+model Cars {
+  id Int @id @default(autoincrement())
+  car_model String
+  car_brand String
+  car_price Float?
+  @@map("cars")
+}
+
+model CarEnjoy {
+  id Int @id @default(autoincrement())
+  id_user Int
+  id_car Int
+  @@map("car_enjoy")
 }

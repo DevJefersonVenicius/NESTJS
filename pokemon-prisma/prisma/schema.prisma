@@ -13,10 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user_login {
+model Pokemon {
   id Int @id @default(autoincrement())
-  name String
-  email String
-  cpf String
-  password String
+  name String @unique
+  heigth Int?
+  images Image[]
+  @@map("pokemon")
+}
+
+model Image {
+  id Int @id @default(autoincrement())
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+  url String
+  @@map("image")
 }

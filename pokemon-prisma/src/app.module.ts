@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './Users/users.module';
+import { PokemonModule } from './Pokemon/pokemon.module';
 
 @Module({
-  imports: [UsersModule],
+  imports: [PokemonModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
-// module -  é o arquivo de configuração do ambiente
